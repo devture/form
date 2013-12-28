@@ -1,0 +1,21 @@
+{
+    "name": "devture/form",
+    "type": "library",
+    "description": "Tiny do-it-yourself form binding and validation library",
+    "keywords": ["form", "validation"],
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Slavi Pantaleev",
+            "email": "s.pantaleev@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/http-foundation": ">=2.3,<2.5-dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Devture\\Component\\Form\\": "src/"
+        }
+    }
+}
