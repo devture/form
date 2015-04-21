@@ -63,7 +63,7 @@ abstract class SetterRequestBinder implements BinderInterface {
 		$this->doBindRequest($entity, $request, $options);
 
 		if ($this->validator instanceof ValidatorInterface) {
-			$this->violations->merge($this->validator->validate($entity));
+			$this->violations->merge($this->validator->validate($entity, $options));
 		}
 
 		return count($this->violations) === 0;
