@@ -17,7 +17,7 @@ class TokenExtension extends \Twig_Extension {
 
 	public function getFunctions() {
 		return array(
-			'csrf_token' => new \Twig_Function_Method($this, 'getCsrfToken'),
+			new \Twig_SimpleFunction('csrf_token', array($this, 'getCsrfToken')),
 		);
 	}
 

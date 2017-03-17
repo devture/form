@@ -9,7 +9,7 @@ class FormExtension extends \Twig_Extension {
 
 	private $container;
 
-	public function __construct(\Pimple $container) {
+	public function __construct(\Pimple\Container $container) {
 		$this->container = $container;
 	}
 
@@ -19,11 +19,11 @@ class FormExtension extends \Twig_Extension {
 
 	public function getFunctions() {
 		return array(
-			'render_form_violations' => new \Twig_Function_Method($this, 'renderFormViolations', array(
+			new \Twig_SimpleFunction('render_form_violations', array($this, 'renderFormViolations'), array(
 				'is_safe' => array('html' => true),
 				'needs_environment' => true,
 			)),
-			'render_form_csrf_token' => new \Twig_Function_Method($this, 'renderFormCsrfToken', array(
+			new \Twig_SimpleFunction('render_form_csrf_token', array($this, 'renderFormCsrfToken'), array(
 				'is_safe' => array('html' => true),
 				'needs_environment' => true,
 			)),
