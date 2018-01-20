@@ -16,7 +16,7 @@ class StringHelper {
 	 *
 	 * @return Boolean true if the two strings are the same, false otherwise
 	 */
-	static public function equals($knownString, $userInput) {
+	static public function equals($knownString, $userInput): bool {
 		// Prevent issues if string length is 0
 		$knownString .= chr(0);
 		$userInput .= chr(0);

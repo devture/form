@@ -10,7 +10,7 @@ class TemporaryTokenManager implements TokenManagerInterface {
 	private $hashFunction;
 	private $salt;
 
-	public function __construct($validityTime, $secret, $hashFunction) {
+	public function __construct(int $validityTime, string $secret, string $hashFunction) {
 		$this->validityTime = $validityTime;
 		$this->secret = $secret;
 		$this->hashFunction = $hashFunction;

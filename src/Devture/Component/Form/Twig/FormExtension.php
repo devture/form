@@ -7,10 +7,10 @@ use Devture\Component\Form\Token\TokenManagerInterface;
 
 class FormExtension extends \Twig_Extension {
 
-	private $container;
+	private $translator;
 
-	public function __construct(\Pimple\Container $container) {
-		$this->container = $container;
+	public function __construct(TranslatorInterface $translator = null) {
+		$this->translator = $translator;
 	}
 
 	public function getName() {
@@ -19,22 +19,15 @@ class FormExtension extends \Twig_Extension {
 
 	public function getFunctions() {
 		return array(
-			new \Twig_SimpleFunction('render_form_violations', array($this, 'renderFormViolations'), array(
+			new \Twig_SimpleFunction('devture_form_render_violations', array($this, 'renderFormViolations'), array(
 				'is_safe' => array('html' => true),
 				'needs_environment' => true,
 			)),
-			new \Twig_SimpleFunction('render_form_csrf_token', array($this, 'renderFormCsrfToken'), array(
+			new \Twig_SimpleFunction('devture_form_render_csrf_token', array($this, 'renderFormCsrfToken'), array(
 				'is_safe' => array('html' => true),
 				'needs_environment' => true,
 			)),
 		);
-	}
-
-	/**
-	 * @return TranslatorInterface|NULL
-	 */
-	public function getTranslator() {
-		return (isset($this->container['translator']) ? $this->container['translator'] : null);
 	}
 
 	public function renderFormViolations(\Twig_Environment $twig, BinderInterface $form, $fieldKey) {
@@ -59,7 +52,7 @@ class FormExtension extends \Twig_Extension {
 	}
 
 	private function translate($message) {
-		return ($this->getTranslator() === null ? $message : $this->getTranslator()->trans($message));
+		return ($this->translator === null ? $message : $this->translator->trans($message));
 	}
 
 }

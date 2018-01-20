@@ -8,6 +8,6 @@ interface ValidatorInterface {
 	 * @param array $options
 	 * @return ViolationsList
 	 */
-	public function validate($object, array $options = array());
+	public function validate($object, array $options = array()): ViolationsList;
 
 }

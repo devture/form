@@ -14,7 +14,7 @@ class EmailValidator {
 	 * @param string $email
 	 * @return boolean
 	 */
-	static public function isValid($email) {
+	static public function isValid($email): bool {
 		$atIndex = strrpos($email, '@');
 		if ($atIndex === false) {
 			return false;

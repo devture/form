@@ -5,11 +5,11 @@ class ViolationsList implements \IteratorAggregate, \Countable {
 
 	private $violations = array();
 
-	public function add($key, $message, array $params = array()) {
+	public function add(string $key, string $message, array $params = array()) {
 		$this->violations[$key][] = array('message' => $message, 'params' => $params);
 	}
 
-	public function get($key) {
+	public function get(string $key): array {
 		if (!isset($this->violations[$key])) {
 			return array();
 		}
@@ -28,7 +28,7 @@ class ViolationsList implements \IteratorAggregate, \Countable {
 		return new \ArrayIterator($this->violations);
 	}
 
-	public function count() {
+	public function count(): int {
 		return count($this->violations);
 	}
 

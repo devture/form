@@ -49,7 +49,7 @@ abstract class SetterRequestBinder implements BinderInterface {
 		return '_csrf_token';
 	}
 
-	public function bind($entity, Request $request, array $options = array()) {
+	public function bind($entity, Request $request, array $options = array()): bool {
 		$this->violations = new ViolationsList();
 
 		if ($this->csrfTokenManager instanceof TokenManagerInterface) {

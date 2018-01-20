@@ -7,11 +7,11 @@
 	"authors": [
 		{
 			"name": "Slavi Pantaleev",
-			"email": "s.pantaleev@gmail.com"
+			"email": "slavi@devture.com"
 		}
 	],
 	"require": {
-		"pimple/pimple": "^3.0",
+		"php": ">=7.1",
 		"symfony/http-foundation": ">=2.3,<5.0-dev"
 	},
 	"autoload": {
