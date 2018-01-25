@@ -36,16 +36,16 @@ class TemporaryTokenManager implements TokenManagerInterface {
 			return false;
 		}
 
-		$timestamp = (int)$timestamp;
+		$timestamp = (int) $timestamp;
 		if ($timestamp > time() || $timestamp + $this->validityTime < time()) {
 			return false;
 		}
 
-		return StringHelper::equals($this->generateToken($intention, $timestamp), $token);
+		return hash_equals($this->generateToken($intention, $timestamp), $token);
 	}
 
-	private function generateToken($intention, $timestamp) {
-		return $timestamp . '-' . hash($this->hashFunction, $timestamp . $intention . $this->secret . $this->salt);
+	private function generateToken(string $intention, int $timestamp) {
+		return $timestamp . '-' . hash_hmac($this->hashFunction, $timestamp . $intention, $this->secret . $this->salt);
 	}
 
 }
