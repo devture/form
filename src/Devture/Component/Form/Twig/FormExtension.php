@@ -1,7 +1,7 @@
 <?php
 namespace Devture\Component\Form\Twig;
 
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Devture\Component\Form\Binder\BinderInterface;
 use Devture\Component\Form\Token\TokenManagerInterface;
 
