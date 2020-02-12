@@ -5,7 +5,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Devture\Component\Form\Binder\BinderInterface;
 use Devture\Component\Form\Token\TokenManagerInterface;
 
-class FormExtension extends \Twig_Extension {
+class FormExtension extends \Twig\Extension\AbstractExtension {
 
 	private $translator;
 
@@ -19,11 +19,11 @@ class FormExtension extends \Twig_Extension {
 
 	public function getFunctions() {
 		return array(
-			new \Twig_SimpleFunction('devture_form_render_violations', array($this, 'renderFormViolations'), array(
+			new \Twig\TwigFunction('devture_form_render_violations', array($this, 'renderFormViolations'), array(
 				'is_safe' => array('html' => true),
 				'needs_environment' => true,
 			)),
-			new \Twig_SimpleFunction('devture_form_render_csrf_token', array($this, 'renderFormCsrfToken'), array(
+			new \Twig\TwigFunction('devture_form_render_csrf_token', array($this, 'renderFormCsrfToken'), array(
 				'is_safe' => array('html' => true),
 				'needs_environment' => true,
 			)),

@@ -3,7 +3,7 @@ namespace Devture\Component\Form\Twig;
 
 use Devture\Component\Form\Token\TokenManagerInterface;
 
-class TokenExtension extends \Twig_Extension {
+class TokenExtension extends \Twig\Extension\AbstractExtension {
 
 	private $csrfTokenManager;
 
@@ -17,7 +17,7 @@ class TokenExtension extends \Twig_Extension {
 
 	public function getFunctions() {
 		return array(
-			new \Twig_SimpleFunction('devture_csrf_token', array($this, 'getCsrfToken')),
+			new \Twig\TwigFunction('devture_csrf_token', array($this, 'getCsrfToken')),
 		);
 	}
 
