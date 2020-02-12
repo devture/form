@@ -30,7 +30,7 @@ class FormExtension extends \Twig\Extension\AbstractExtension {
 		);
 	}
 
-	public function renderFormViolations(\Twig_Environment $twig, BinderInterface $form, $fieldKey) {
+	public function renderFormViolations(\Twig\Environment $twig, BinderInterface $form, $fieldKey) {
 		$errors = $form->getViolations()->get($fieldKey);
 		if (count($errors) === 0) {
 			return '';
@@ -42,7 +42,7 @@ class FormExtension extends \Twig\Extension\AbstractExtension {
 		return $twig->render('DevtureForm/validation/errors.html.twig', array('fieldKey' => $fieldKey, 'messages' => $messages));
 	}
 
-	public function renderFormCsrfToken(\Twig_Environment $twig, BinderInterface $form) {
+	public function renderFormCsrfToken(\Twig\Environment $twig, BinderInterface $form) {
 		$tokenManager = $form->getCsrfTokenManager();
 		if ($tokenManager instanceof TokenManagerInterface) {
 			$token = htmlspecialchars($tokenManager->generate($form->getCsrfIntention()), ENT_QUOTES);
