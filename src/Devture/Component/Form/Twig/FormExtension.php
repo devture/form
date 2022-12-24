@@ -7,18 +7,18 @@ use Devture\Component\Form\Token\TokenManagerInterface;
 
 class FormExtension extends \Twig\Extension\AbstractExtension {
 
-	private $translator;
+	private ?TranslatorInterface $translator = null;
 
-	public function __construct(TranslatorInterface $translator = null) {
+	public function __construct(?TranslatorInterface $translator = null) {
 		$this->translator = $translator;
 	}
 
-	public function getName() {
+	public function getName(): string {
 		return 'devture_form_form_extension';
 	}
 
-	public function getFunctions() {
-		return array(
+	public function getFunctions(): array {
+		return [
 			new \Twig\TwigFunction('devture_form_render_violations', array($this, 'renderFormViolations'), array(
 				'is_safe' => array('html' => true),
 				'needs_environment' => true,
@@ -27,7 +27,7 @@ class FormExtension extends \Twig\Extension\AbstractExtension {
 				'is_safe' => array('html' => true),
 				'needs_environment' => true,
 			)),
-		);
+		];
 	}
 
 	public function renderFormViolations(\Twig\Environment $twig, BinderInterface $form, $fieldKey) {
@@ -51,7 +51,7 @@ class FormExtension extends \Twig\Extension\AbstractExtension {
 		return '';
 	}
 
-	private function translate($message) {
+	private function translate(string $message): string {
 		return ($this->translator === null ? $message : $this->translator->trans($message));
 	}
 

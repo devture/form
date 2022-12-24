@@ -3,21 +3,10 @@ namespace Devture\Component\Form\Token;
 
 interface TokenManagerInterface {
 
-	/**
-	 * @param string $salt
-	 */
-	public function setSalt($salt);
+	public function setSalt(string $salt);
 
-	/**
-	 * @param string $intention
-	 */
-	public function generate($intention);
+	public function generate(string $intention): string;
 
-	/**
-	 * @param string $intention
-	 * @param string $token
-	 * @return boolean
-	 */
-	public function isValid($intention, $token);
+	public function isValid(string $intention, string $token): bool;
 
 }

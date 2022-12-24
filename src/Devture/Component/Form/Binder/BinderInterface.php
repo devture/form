@@ -10,51 +10,27 @@ interface BinderInterface {
 
 	/**
 	 * The violations that occurred during the last `bind()` call.
-	 *
-	 * @return ViolationsList
 	 */
-	public function getViolations();
+	public function getViolations(): ViolationsList;
 
-	/**
-	 * @param ValidatorInterface $validator
-	 */
-	public function setValidator(ValidatorInterface $validator = null);
+	public function setValidator(?ValidatorInterface $validator): void;
 
-	/**
-	 * @return ValidatorInterface|NULL
-	 */
-	public function getValidator();
+	public function getValidator(): ?ValidatorInterface;
 
-	/**
-	 * @param TokenManagerInterface $tokenManager
-	 * @param string $intention
-	 */
-	public function setCsrfProtection(TokenManagerInterface $tokenManager = null, $intention = null);
+	public function setCsrfProtection(?TokenManagerInterface $tokenManager, ?string $intention);
 
-	/**
-	 * @return TokenManagerInterface|NULL
-	 */
-	public function getCsrfTokenManager();
+	public function getCsrfTokenManager(): ?TokenManagerInterface;
 
-	/**
-	 * @return string|NULL
-	 */
-	public function getCsrfIntention();
+	public function getCsrfIntention(): ?string;
 
-	/**
-	 * @return string
-	 */
-	public function getCsrfTokenFieldName();
+	public function getCsrfTokenFieldName(): string;
 
 	/**
 	 * Binds the request parameters to the provided entity.
 	 * Returns false if any violations occur during binding or validation.
 	 *
-	 * @param mixed $entity
-	 * @param Request $request
-	 * @param array $options
 	 * @return boolean - whether binding (and subsequent validation, if enabled) were successful
 	 */
-	public function bind($entity, Request $request, array $options = array());
+	public function bind(object $entity, Request $request, array $options = []): bool;
 
 }

@@ -5,27 +5,24 @@ use Devture\Component\Form\Helper\StringHelper;
 
 class TemporaryTokenManager implements TokenManagerInterface {
 
-	private $validityTime;
-	private $secret;
-	private $hashFunction;
-	private $salt;
+	private string $salt = '';
 
-	public function __construct(int $validityTime, string $secret, string $hashFunction) {
-		$this->validityTime = $validityTime;
-		$this->secret = $secret;
-		$this->hashFunction = $hashFunction;
-		$this->salt = '';
+	public function __construct(
+		private int $validityTime,
+		private string $secret,
+		private string $hashFunction,
+	) {
 	}
 
-	public function setSalt($salt) {
+	public function setSalt(string $salt): void {
 		$this->salt = $salt;
 	}
 
-	public function generate($intention) {
+	public function generate(string $intention): string {
 		return $this->generateToken($intention, time());
 	}
 
-	public function isValid($intention, $token) {
+	public function isValid(string $intention, string $token): bool {
 		if (strpos($token, '-') === false) {
 			return false;
 		}
@@ -44,7 +41,7 @@ class TemporaryTokenManager implements TokenManagerInterface {
 		return hash_equals($this->generateToken($intention, $timestamp), $token);
 	}
 
-	private function generateToken(string $intention, int $timestamp) {
+	private function generateToken(string $intention, int $timestamp): string {
 		return $timestamp . '-' . hash_hmac($this->hashFunction, $timestamp . $intention, $this->secret . $this->salt);
 	}
 

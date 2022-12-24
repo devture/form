@@ -8,48 +8,47 @@ use Devture\Component\Form\Token\TokenManagerInterface;
 
 abstract class SetterRequestBinder implements BinderInterface {
 
-	private $validator;
-	private $violations;
-	private $csrfTokenManager;
-	private $csrfIntention;
+	private ViolationsList $violations;
 
-	abstract protected function doBindRequest($entity, Request $request, array $options = array());
+	private ?TokenManagerInterface $csrfTokenManager = null;
+	private ?string $csrfIntention = null;
 
-	public function __construct(ValidatorInterface $validator = null) {
-		$this->validator = $validator;
+	abstract protected function doBindRequest(object $entity, Request $request, array $options = []): void;
+
+	public function __construct(private ?ValidatorInterface $validator) {
 		$this->violations = new ViolationsList();
 	}
 
-	public function getViolations() {
+	public function getViolations(): ViolationsList {
 		return $this->violations;
 	}
 
-	public function setValidator(ValidatorInterface $validator = null) {
+	public function setValidator(?ValidatorInterface $validator): void {
 		$this->validator = $validator;
 	}
 
-	public function getValidator() {
+	public function getValidator(): ?ValidatorInterface {
 		return $this->validator;
 	}
 
-	public function setCsrfProtection(TokenManagerInterface $tokenManager = null, $intention = null) {
+	public function setCsrfProtection(?TokenManagerInterface $tokenManager, ?string $intention): void {
 		$this->csrfTokenManager = $tokenManager;
 		$this->csrfIntention = $intention;
 	}
 
-	public function getCsrfTokenManager() {
+	public function getCsrfTokenManager(): ?TokenManagerInterface {
 		return $this->csrfTokenManager;
 	}
 
-	public function getCsrfIntention() {
+	public function getCsrfIntention(): ?string {
 		return $this->csrfIntention;
 	}
 
-	public function getCsrfTokenFieldName() {
+	public function getCsrfTokenFieldName(): string {
 		return '_csrf_token';
 	}
 
-	public function bind($entity, Request $request, array $options = array()): bool {
+	public function bind(object $entity, Request $request, array $options = []): bool {
 		$this->violations = new ViolationsList();
 
 		if ($this->csrfTokenManager instanceof TokenManagerInterface) {
@@ -69,7 +68,7 @@ abstract class SetterRequestBinder implements BinderInterface {
 		return count($this->violations) === 0;
 	}
 
-	protected function bindAll($entity, array $values) {
+	protected function bindAll(object $entity, array $values): void {
 		foreach ($values as $key => $value) {
 			$setter = 'set' . ucfirst($key);
 			if (method_exists($entity, $setter)) {
@@ -78,7 +77,7 @@ abstract class SetterRequestBinder implements BinderInterface {
 		}
 	}
 
-	protected function bindWhitelisted($entity, array $values, array $keysWhitelisted) {
+	protected function bindWhitelisted(object $entity, array $values, array $keysWhitelisted): void {
 		$valuesAllowed = array();
 		foreach ($values as $key => $value) {
 			if (in_array($key, $keysWhitelisted)) {
